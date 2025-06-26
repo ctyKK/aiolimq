@@ -14,7 +14,7 @@ from ._types import L, P, S, V
 class LimitedQueue(Queue[V], Generic[L, V]):
     """Limited asyncio.Queue."""
 
-    def __init__(self, limiter: L, /, maxsize: int = 0) -> None:
+    def __init__(self, limiter: L, maxsize: int = 0) -> None:
         super().__init__(maxsize=maxsize)
 
         if not isinstance(limiter, _CommonLimiterMixin):
@@ -23,7 +23,7 @@ class LimitedQueue(Queue[V], Generic[L, V]):
         self._limiter = limiter
         self._limiter_closed: bool = False
 
-    async def put(self, item: V, /) -> None:
+    async def put(self, item: V) -> None:
         return await super().put(item)
 
     async def get(self) -> V:
@@ -34,7 +34,7 @@ class LimitedQueue(Queue[V], Generic[L, V]):
                 raise
         return await super().get()
 
-    # def shutdown(self, immediate: bool = False, /) -> None:
+    # def shutdown(self, immediate: bool = False) -> None:
     #     # TODO: added in python-3.13
     #     self._limiter.close()
     #     super().shutdown(immediate=immediate)
@@ -43,14 +43,14 @@ class LimitedQueue(Queue[V], Generic[L, V]):
 class LimitedPriorityQueue(LimitedQueue[L, V], Generic[L, S, V]):
     """Limited priority asyncio.Queue."""
 
-    def __init__(self, limiter: L, priority: P[V, S] | None = None, /, maxsize: int = 0) -> None:
+    def __init__(self, limiter: L, priority: P[V, S] = lambda _: _, maxsize: int = 0) -> None:  # type: ignore
         super().__init__(limiter, maxsize)
 
-        self._priority: P[V, S] = priority if priority is not None else lambda _: _
+        self._priority: P[V, S] = priority
         self._auto_id: int = 0
         """Auto increment ID"""
 
-    def _init(self, maxsize):
+    def _init(self, maxsize: int) -> None:
         self._queue: list[tuple[S, int, V]] = list()
 
     def _put(self, item: V, heappush=heapq.heappush) -> None:
