@@ -44,11 +44,11 @@ class LimitedPriorityQueue(LimitedQueue[L, V], Generic[L, S, V]):
     def _init(self, maxsize: int) -> None:
         self._queue: list[tuple[S, int, V]] = list()
 
-    def _put(self, item: V, heappush=heapq.heappush) -> None:
+    def _put(self, item: V) -> None:
         entity = (self._priority(item), self._auto_id, item)
-        heappush(self._queue, entity)
+        heapq.heappush(self._queue, entity)
         self._auto_id += 1
 
-    def _get(self, heappop=heapq.heappop) -> V:
-        _, _, item = heappop(self._queue)
+    def _get(self) -> V:
+        _, _, item = heapq.heappop(self._queue)
         return item
