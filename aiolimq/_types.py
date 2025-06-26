@@ -10,19 +10,19 @@ from asynciolimiter import _CommonLimiterMixin
 V = TypeVar('V')
 
 L = TypeVar('L', bound=_CommonLimiterMixin)
-"""Limiter Type."""
+"""Limiter"""
 
 
 @runtime_checkable
 class SupportsGtLt(Protocol):
-    """Support __gt__ and __lt__."""
+    """Support __gt__ and __lt__"""
 
     def __gt__(self, other, /) -> bool: ...
     def __lt__(self, other, /) -> bool: ...
 
 
 S = TypeVar('S', bound=SupportsGtLt)
-"""Object supports __gt__ and __lt__."""
+"""Support __gt__ and __lt__"""
 
 P = Callable[[V], S]
-"""Priority calculate method."""
+"""Priority calculator"""
