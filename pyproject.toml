@@ -5,3 +5,9 @@ requires-python = ">=3.11"
 dependencies = [
     "asynciolimiter>=1.2.0",
 ]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.1",
+    "pytest-asyncio>=1.0.0",
+]
