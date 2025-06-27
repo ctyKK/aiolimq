@@ -6,6 +6,11 @@ Asyncio rate-limited queues for Python.
 > Based on [asynciolimiter](https://github.com/bharel/asynciolimiter)
 
 
+## Requirements
+- Python >= 3.11
+- asynciolimiter >= 1.2.0
+
+
 ## Sample Usage
 ```python
 # cpython-3.13
