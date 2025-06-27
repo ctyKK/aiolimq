@@ -99,19 +99,19 @@ async def custom_priority2():
 
 
 async def main():
-    print('====================\n\n')
+    print('\n\n====================\n\n')
 
     await basic_usage()
     print('\n\n====================\n\n')
 
     await share_limiter()
-    print('\n\n====================\n\n', end='')
+    print('\n\n====================\n\n')
 
     await custom_priority()
-    print('\n\n====================\n\n', end='')
+    print('\n\n====================\n\n')
 
     await custom_priority2()
-    print('\n\n====================\n\n', end='')
+    print('\n\n====================\n\n')
 
 
 if __name__ == '__main__':
